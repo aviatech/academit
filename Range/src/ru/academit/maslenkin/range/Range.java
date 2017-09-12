@@ -28,4 +28,12 @@ public class Range {
     boolean isInside(double x) {
         return x >= from && x <= to;
     }
+
+    private double getLength() {
+        return to - from;
+    }
+
+    void print() {
+        System.out.println("Длина диапазона " + getLength());
+    }
 }

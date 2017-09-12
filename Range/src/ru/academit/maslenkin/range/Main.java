@@ -17,5 +17,6 @@ public class Main {
         Range range = new Range(from, to);
         boolean result = range.isInside(x);
         System.out.println(result);
+        range.print();
     }
 }
