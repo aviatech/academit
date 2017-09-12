@@ -4,7 +4,7 @@ public class Range {
     private double from;
     private double to;
 
-    Range(double from, double to) {
+   public Range(double from, double to) {
         this.from = from;
         this.to = to;
     }
@@ -25,15 +25,15 @@ public class Range {
         this.to = to;
     }
 
-    boolean isInside(double x) {
+   public boolean isInside(double x) {
         return x >= from && x <= to;
     }
 
-    private double getLength() {
+    public double getLength() {
         return to - from;
     }
 
-    void print() {
+    public  void print() {
         System.out.println("Длина диапазона " + getLength());
     }
 }
