@@ -1,6 +1,6 @@
-package ru.academit.maslenkin.main;
+package ru.academit.maslenkin.range.main;
 
-import ru.academit.maslenkin.range.Range;
+import ru.academit.maslenkin.range.range.Range;
 
 import java.util.Scanner;
 public class Main {

@@ -1,4 +1,4 @@
-package ru.academit.maslenkin.range;
+package ru.academit.maslenkin.range.range;
 
 public class Range {
     private double from;
