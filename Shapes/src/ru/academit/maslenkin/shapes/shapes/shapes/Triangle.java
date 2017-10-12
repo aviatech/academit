@@ -40,8 +40,8 @@ public class Triangle implements Shape {
 
     @Override
     public double getArea() {
-        double p = getPerimeter() / 2;
-        return Math.sqrt(p * (p - getLengthSide(x1, x2, y1, y2)) + (p - getLengthSide(x2, x3, y2, y3)) + (p - getLengthSide(x1, x3, y1, y3)));
+        double semiPerimeter = getPerimeter() / 2;
+        return Math.sqrt(semiPerimeter * (semiPerimeter - getLengthSide(x1, x2, y1, y2)) + (semiPerimeter - getLengthSide(x2, x3, y2, y3)) + (semiPerimeter - getLengthSide(x1, x3, y1, y3)));
     }
 
     @Override
