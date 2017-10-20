@@ -48,4 +48,30 @@ public class Triangle implements Shape {
     public double getPerimeter() {
         return getLengthSide(x1, x2, y1, y2) + getLengthSide(x2, x3, y2, y3) + getLengthSide(x1, x3, y1, y3);
     }
+
+    @Override
+    public String toString() {
+        return "Triangle" + "[" + x1 + " " + y1 + "]" + "[" + x2 + " " + y2 + "]" + "[" + x3 + " " + y3 + "]" + "Area = " + getArea();
+    }
+
+    @Override
+    public int hashCode() {
+        int prime = 33;
+        int resultHash = 1;
+        resultHash = prime * resultHash + (int) x1;
+        resultHash = prime * resultHash + (int) y1;
+        resultHash = prime * resultHash + (int) x2;
+        resultHash = prime * resultHash + (int) y2;
+        resultHash = prime * resultHash + (int) x3;
+        resultHash = prime * resultHash + (int) y3;
+        return resultHash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Triangle)) return false;
+        Triangle triangle = (Triangle) obj;
+        return (x1 == triangle.x1 && y1 == triangle.y1 && x2 == triangle.x2 && y2 == triangle.y2 && x3 == triangle.y3);
+
+    }
 }

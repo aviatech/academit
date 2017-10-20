@@ -29,4 +29,24 @@ public class Circle implements Shape {
     public double getPerimeter() {
         return 2 * Math.PI * radius;
     }
+
+    @Override
+    public String toString() {
+        return "Circle" + "[" + radius + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        int prime = 33;
+        int resultHash = 1;
+        resultHash = prime * resultHash + (int) radius;
+        return resultHash;
+    }
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Circle)) return false;
+        Circle circle = (Circle) obj;
+        return (radius == circle.radius);
+
+    }
 }

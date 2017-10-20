@@ -29,6 +29,28 @@ public class Rectangle implements Shape {
 
     @Override
     public double getPerimeter() {
-        return 2* (width + height);
+        return 2 * (width + height);
+    }
+
+    @Override
+    public String toString() {
+        return "Rectangle" + "[" + width + "]" + "[" + height + "]" + "Area" + " = " + getArea();
+    }
+
+    @Override
+    public int hashCode() {
+        int prime = 33;
+        int resultHash = 1;
+        resultHash = prime * resultHash + (int) height;
+        resultHash = prime * resultHash + (int) width;
+        return resultHash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Rectangle)) return false;
+        Rectangle rectangle = (Rectangle) obj;
+        return (width == rectangle.width && height == rectangle.height);
+
     }
 }

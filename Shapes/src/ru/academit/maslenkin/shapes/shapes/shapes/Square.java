@@ -5,7 +5,7 @@ package ru.academit.maslenkin.shapes.shapes.shapes;
  */
 public class Square implements Shape {
     private double width;
-
+    private static final int SIDE = 4;
 
     public Square(double width) {
         this.width = width;
@@ -28,7 +28,27 @@ public class Square implements Shape {
 
     @Override
     public double getPerimeter() {
-        int side = 4;
-        return width * side;
+        return width * SIDE;
+    }
+
+    @Override
+    public String toString() {
+        return "Square" + "[" + width + "]";
+    }
+
+    @Override
+    public int hashCode() {
+        int prime = 33;
+        int resultHash = 1;
+        resultHash = prime * resultHash + (int) width;
+        return resultHash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Square)) return false;
+        Square square = (Square) obj;
+        return (width == square.width);
+
     }
 }
