@@ -109,14 +109,14 @@ public class Vector {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (o == null || getClass() != o.getClass()) {
+        if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        Vector v = (Vector) o;
+        Vector v = (Vector) obj;
         return Arrays.equals(vector, v.vector);
     }
 
@@ -126,6 +126,14 @@ public class Vector {
             sum += Math.pow(e, 2);
         }
         return Math.sqrt(sum);
+    }
+
+    public double setElement(int i, double component) {
+        if (i < 0 || i > this.vector.length) {
+            throw new IndexOutOfBoundsException();
+        } else {
+            return this.vector[i] = component;
+        }
     }
 
     public double getElement(int i) {
