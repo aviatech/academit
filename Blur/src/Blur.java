@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class Blur {
     public static void main(String[] args) throws IOException {
         // читаем картинку из файлу image.jpg в объект класса BufferedImage
-        BufferedImage image = ImageIO.read(new File("image.jpg"));
+        BufferedImage image = ImageIO.read(new File("image1.jpg"));
 
         WritableRaster raster = image.getRaster();
         // получаем ширину и высоту картинки
