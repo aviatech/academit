@@ -64,7 +64,7 @@ public class Blur {
                 rasterOut.setPixel(i, j, pixel);
             }
         }
-        ImageIO.write(image, "png", new File("out.png"));
+        ImageIO.write(imageOut, "png", new File("out.png"));
     }
 }
 
