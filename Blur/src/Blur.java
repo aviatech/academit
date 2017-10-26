@@ -36,7 +36,7 @@ public class Blur {
         int[] pixelTopCenter = new int[COLORS_COUNT_IN_RGB];
         int[] pixelTopRight = new int[COLORS_COUNT_IN_RGB];
         int[] pixelLeft = new int[COLORS_COUNT_IN_RGB];
-        int[] pixelLeftBottom = new int[COLORS_COUNT_IN_RGB];
+        int[] pixelBottomLeft = new int[COLORS_COUNT_IN_RGB];
         int[] pixelRight = new int[COLORS_COUNT_IN_RGB];
         int[] pixelBottomCenter = new int[COLORS_COUNT_IN_RGB];
         int[] pixelBottomRight = new int[COLORS_COUNT_IN_RGB];
@@ -48,7 +48,7 @@ public class Blur {
 
                 raster.getPixel(i - 1, j - 1, pixelTopLeft);
                 raster.getPixel(i - 1, j, pixelLeft);
-                raster.getPixel(i + 1, j + 1, pixelLeftBottom);
+                raster.getPixel(i - 1, j + 1, pixelBottomLeft);
 
                 raster.getPixel(i, j - 1, pixelTopCenter);
                 raster.getPixel(i, j + 1, pixelBottomCenter);
@@ -58,7 +58,7 @@ public class Blur {
                 raster.getPixel(i + 1, j + 1, pixelBottomRight);
 
                 for (int k = 0; k < COLORS_COUNT_IN_RGB; ++k) {
-                    pixel[k] = (int) ((pixel[k] + pixelBottomCenter[k] + pixelBottomRight[k] + pixelLeft[k] + pixelLeftBottom[k] +
+                    pixel[k] = (int) ((pixel[k] + pixelBottomCenter[k] + pixelBottomRight[k] + pixelLeft[k] + pixelBottomLeft[k] +
                             pixelRight[k] + pixelTopCenter[k] + pixelTopLeft[k] + pixelTopRight[k]) / PIXEL_COUNT);
                 }
                 rasterOut.setPixel(i, j, pixel);
