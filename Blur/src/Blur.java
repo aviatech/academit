@@ -19,13 +19,17 @@ public class Blur {
     public static void main(String[] args) throws IOException {
         // читаем картинку из файлу image.jpg в объект класса BufferedImage
         BufferedImage image = ImageIO.read(new File("image1.jpg"));
-
         WritableRaster raster = image.getRaster();
+
         // получаем ширину и высоту картинки
         int width = raster.getWidth();
         int height = raster.getHeight();
+
+        BufferedImage imageOut = new BufferedImage(width, height, image.getType());
+        WritableRaster rasterOut = imageOut.getRaster();
+
         final int COLORS_COUNT_IN_RGB = 3;
-        final int PIXEL_COUNT = 9;
+        final double PIXEL_COUNT = 9.0;
 
         int[] pixel = new int[COLORS_COUNT_IN_RGB];
         int[] pixelTopLeft = new int[COLORS_COUNT_IN_RGB];
@@ -37,8 +41,8 @@ public class Blur {
         int[] pixelBottomCenter = new int[COLORS_COUNT_IN_RGB];
         int[] pixelBottomRight = new int[COLORS_COUNT_IN_RGB];
         // цикл по строкам картинки
-        for (int j = 1; j < height-1; ++j) {
-            for (int i = 1; i < width-1; ++i) {
+        for (int j = 1; j < height - 1; ++j) {
+            for (int i = 1; i < width - 1; ++i) {
 
                 raster.getPixel(i, j, pixel);
 
@@ -57,7 +61,7 @@ public class Blur {
                     pixel[k] = (int) ((pixel[k] + pixelBottomCenter[k] + pixelBottomRight[k] + pixelLeft[k] + pixelLeftBottom[k] +
                             pixelRight[k] + pixelTopCenter[k] + pixelTopLeft[k] + pixelTopRight[k]) / PIXEL_COUNT);
                 }
-                raster.setPixel(i, j, pixel);
+                rasterOut.setPixel(i, j, pixel);
             }
         }
         ImageIO.write(image, "png", new File("out.png"));
