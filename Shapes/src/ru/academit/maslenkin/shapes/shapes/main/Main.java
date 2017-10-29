@@ -1,5 +1,7 @@
 package ru.academit.maslenkin.shapes.shapes.main;
 
+import ru.academit.maslenkin.shapes.shapes.comparator.AreaComparator;
+import ru.academit.maslenkin.shapes.shapes.comparator.PerimeterComparator;
 import ru.academit.maslenkin.shapes.shapes.shapes.*;
 import ru.academit.maslenkin.shapes.shapes.shapes.Rectangle;
 import ru.academit.maslenkin.shapes.shapes.shapes.Shape;
@@ -11,33 +13,14 @@ import java.util.Arrays;
  * Created by Александр on 05.10.2017.
  */
 public class Main {
-    public static Shape getMaxAreaShape(Shape shapes[]) {
-        Shape record = shapes[0];
-        for (int i = 1; i < shapes.length; ++i) {
-            if (shapes[i].getArea() > record.getArea()) {
-                record = shapes[i];
-            }
-        }
-        return record;
+    public static Shape getMaxAreaShape(Shape... shape) {
+        Arrays.sort(shape, new AreaComparator());
+        return shape[shape.length - 1];
     }
 
-    public static Shape getSecondPerimeter(Shape shapes[]) {
-        double[] array = new double[shapes.length];
-        Shape perimeter = shapes[0];
-        int i = 0;
-
-        for (Shape e : shapes) {
-            array[i] = e.getPerimeter();
-            ++i;
-        }
-        Arrays.sort(array);
-        for (Shape e : shapes) {
-            if (array[array.length - 2] == e.getPerimeter()) {
-                perimeter = e;
-                break;
-            }
-        }
-        return perimeter;
+    public static Shape getSecondPerimeter(Shape... shape) {
+        Arrays.sort(shape, new PerimeterComparator());
+        return shape[shape.length - 2];
     }
 
     public static void main(String[] args) {

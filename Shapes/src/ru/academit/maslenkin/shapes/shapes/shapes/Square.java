@@ -46,9 +46,14 @@ public class Square implements Shape {
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Square)) return false;
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
         Square square = (Square) obj;
-        return (width == square.width);
+        return width == square.width;
 
     }
 }

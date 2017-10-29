@@ -20,7 +20,7 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
-    private static double getLengthSide(double x1, double x2, double y1, double y2) {
+    private static double getSideLength(double x1, double x2, double y1, double y2) {
         return (Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)));
     }
 
@@ -41,12 +41,12 @@ public class Triangle implements Shape {
     @Override
     public double getArea() {
         double semiPerimeter = getPerimeter() / 2;
-        return Math.sqrt(semiPerimeter * (semiPerimeter - getLengthSide(x1, x2, y1, y2)) + (semiPerimeter - getLengthSide(x2, x3, y2, y3)) + (semiPerimeter - getLengthSide(x1, x3, y1, y3)));
+        return Math.sqrt(semiPerimeter * (semiPerimeter - getSideLength(x1, x2, y1, y2)) + (semiPerimeter - getSideLength(x2, x3, y2, y3)) + (semiPerimeter - getSideLength(x1, x3, y1, y3)));
     }
 
     @Override
     public double getPerimeter() {
-        return getLengthSide(x1, x2, y1, y2) + getLengthSide(x2, x3, y2, y3) + getLengthSide(x1, x3, y1, y3);
+        return getSideLength(x1, x2, y1, y2) + getSideLength(x2, x3, y2, y3) + getSideLength(x1, x3, y1, y3);
     }
 
     @Override
@@ -68,10 +68,15 @@ public class Triangle implements Shape {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Triangle)) return false;
-        Triangle triangle = (Triangle) obj;
-        return (x1 == triangle.x1 && y1 == triangle.y1 && x2 == triangle.x2 && y2 == triangle.y2 && x3 == triangle.y3);
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != this.getClass()) {
+            return false;
+        }
+        Triangle triangle = (Triangle) o;
+        return x1 == triangle.x1 && y1 == triangle.y1 && x2 == triangle.x2 && y2 == triangle.y2 && x3 == triangle.y3;
 
     }
 }

@@ -42,11 +42,17 @@ public class Circle implements Shape {
         resultHash = prime * resultHash + (int) radius;
         return resultHash;
     }
+
     @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Circle)) return false;
-        Circle circle = (Circle) obj;
-        return (radius == circle.radius);
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != this.getClass()) {
+            return false;
+        }
+        Circle circle = (Circle) o;
+        return radius == circle.radius;
 
     }
 }

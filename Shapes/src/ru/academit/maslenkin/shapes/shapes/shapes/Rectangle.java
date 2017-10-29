@@ -47,10 +47,15 @@ public class Rectangle implements Shape {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Rectangle)) return false;
-        Rectangle rectangle = (Rectangle) obj;
-        return (width == rectangle.width && height == rectangle.height);
+    public boolean equals(Object o) {
+        if (o == this) {
+            return true;
+        }
+        if (o == null || o.getClass() != this.getClass()) {
+            return false;
+        }
+        Rectangle rectangle = (Rectangle) o;
+        return width == rectangle.width && height == rectangle.height;
 
     }
 }
