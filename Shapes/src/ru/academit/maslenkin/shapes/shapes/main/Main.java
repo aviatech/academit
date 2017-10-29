@@ -13,14 +13,14 @@ import java.util.Arrays;
  * Created by Александр on 05.10.2017.
  */
 public class Main {
-    public static Shape getMaxAreaShape(Shape... shape) {
-        Arrays.sort(shape, new AreaComparator());
-        return shape[shape.length - 1];
+    public static Shape getMaxAreaShape(Shape... shapes) {
+        Arrays.sort(shapes, new AreaComparator());
+        return shapes[shapes.length - 1];
     }
 
-    public static Shape getSecondPerimeter(Shape... shape) {
-        Arrays.sort(shape, new PerimeterComparator());
-        return shape[shape.length - 2];
+    public static Shape getSecondPerimeter(Shape... shapes) {
+        Arrays.sort(shapes, new PerimeterComparator());
+        return shapes[shapes.length - 2];
     }
 
     public static void main(String[] args) {
