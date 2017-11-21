@@ -23,8 +23,9 @@ public class Main {
                 String string = scanner.nextLine();
                 stringArrayList.add(string);
             }
-            System.out.println(stringArrayList);
         }
+        System.out.println(stringArrayList);
+
         int i = 0;
         while (i < integerArrayList.size()) {
             if (integerArrayList.get(i) % 2 == 0) {
