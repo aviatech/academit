@@ -13,19 +13,16 @@ import static java.lang.System.in;
  */
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        ArrayList<String> stringArrayList = new ArrayList<>();
-        ArrayList<Integer> integerArrayList = new ArrayList<>(Arrays.asList(3, 3, 3, 1, 5, 2, 1, 3, 5));
-        ArrayList<Integer> arrayList = new ArrayList<>(integerArrayList);
-        ArrayList<Integer> newArrayList = new ArrayList<>();
 
+        ArrayList<String> stringArrayList = new ArrayList<>();
         try (Scanner scanner = new Scanner(new FileInputStream("input.txt"))) {
             while (scanner.hasNextLine()) {
                 String string = scanner.nextLine();
                 stringArrayList.add(string);
             }
         }
-        System.out.println(stringArrayList);
 
+        ArrayList<Integer> integerArrayList = new ArrayList<>(Arrays.asList(3, 3, 3, 1, 5, 2, 1, 3, 5));
         int i = 0;
         while (i < integerArrayList.size()) {
             if (integerArrayList.get(i) % 2 == 0) {
@@ -36,8 +33,10 @@ public class Main {
         }
         System.out.println(integerArrayList);
 
+        ArrayList<Integer> arrayList = new ArrayList<>(integerArrayList);
+        ArrayList<Integer> newArrayList = new ArrayList<>();
         for (Integer e : arrayList) {
-            if (!(newArrayList.contains(e))) {
+            if (!newArrayList.contains(e)) {
                 newArrayList.add(e);
             }
         }
