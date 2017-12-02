@@ -130,8 +130,7 @@ public class SinglyLinkedList<T> {
             deleteTop();
             return true;
         }
-        Node<T> p;
-        Node<T> q;
+        Node<T> p, q;
         for (p = head, q = p.getNext(); q != null; p = p.getNext(), q = p.getNext()) {
             if (Objects.equals(q.getData(), object)) {
                 p.setNext(q.getNext());
