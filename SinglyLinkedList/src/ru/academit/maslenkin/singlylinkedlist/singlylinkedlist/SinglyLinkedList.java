@@ -58,7 +58,6 @@ public class SinglyLinkedList<T> {
             throw new IndexOutOfBoundsException();
         }
         return getNode(index).getData();
-
     }
 
     //получение узла по индексу
