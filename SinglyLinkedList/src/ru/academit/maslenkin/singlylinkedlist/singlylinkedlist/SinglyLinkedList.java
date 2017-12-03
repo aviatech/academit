@@ -45,21 +45,20 @@ public class SinglyLinkedList<T> {
     public T setData(int index, T data) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
-        } else {
-            Node<T> node = getNode(index);
-            T tmp = node.getData();
-            node.setData(data);
-            return tmp;
         }
+        Node<T> node = getNode(index);
+        T tmp = node.getData();
+        node.setData(data);
+        return tmp;
     }
 
     //получение значения по индексу
     public T getElement(int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
-        } else {
-            return getNode(index).getData();
         }
+        return getNode(index).getData();
+
     }
 
     //получение узла по индексу
@@ -98,13 +97,12 @@ public class SinglyLinkedList<T> {
     public void add(int index, T data) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
-        } else {
-            Node<T> node = getNode(index - 1);
-            Node<T> p = new Node<T>(data);
-            p.setNext(node.getNext());
-            node.setNext(p);
-            ++size;
         }
+        Node<T> node = getNode(index - 1);
+        Node<T> p = new Node<T>(data);
+        p.setNext(node.getNext());
+        node.setNext(p);
+        ++size;
     }
 
     //удаление по индексу
@@ -121,7 +119,6 @@ public class SinglyLinkedList<T> {
             size--;
             return q.getData();
         }
-
     }
 
     //удаление по значению
@@ -145,12 +142,11 @@ public class SinglyLinkedList<T> {
     public void insertAfter(int index, Node<T> object) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
-        } else {
-            Node<T> p = getNode(index);
-            object.setNext(p.getNext());
-            p.setNext(object);
-            size++;
         }
+        Node<T> p = getNode(index);
+        object.setNext(p.getNext());
+        p.setNext(object);
+        size++;
     }
 
     //удаление после указанного узла
