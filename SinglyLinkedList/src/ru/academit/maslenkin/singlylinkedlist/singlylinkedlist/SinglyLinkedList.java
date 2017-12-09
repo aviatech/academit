@@ -91,7 +91,7 @@ public class SinglyLinkedList<T> {
 
     //добавление по индексу
     public void add(int index, T data) {
-        if (index < 0 || index >= size) {
+        if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> node = getNode(index - 1);
