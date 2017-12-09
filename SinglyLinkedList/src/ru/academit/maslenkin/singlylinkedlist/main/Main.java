@@ -1,6 +1,6 @@
 package ru.academit.maslenkin.singlylinkedlist.main;
 
-import ru.academit.maslenkin.singlylinkedlist.node.Node;
+import ru.academit.maslenkin.singlylinkedlist.singlylinkedlist.Node;
 import ru.academit.maslenkin.singlylinkedlist.singlylinkedlist.SinglyLinkedList;
 
 /**

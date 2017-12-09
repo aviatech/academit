@@ -1,8 +1,5 @@
 package ru.academit.maslenkin.singlylinkedlist.singlylinkedlist;
 
-import ru.academit.maslenkin.singlylinkedlist.node.Node;
-import sun.invoke.empty.Empty;
-
 import java.util.Objects;
 
 /**
@@ -15,7 +12,6 @@ public class SinglyLinkedList<T> {
     public SinglyLinkedList() {
         this.head = null;
         this.size = 0;
-
     }
 
     public SinglyLinkedList(T data) {
@@ -26,24 +22,22 @@ public class SinglyLinkedList<T> {
     public Node<T> getHead() {
         return head;
     }
-
-    public void setHead() {
-        this.head = head;
-    }
-
     public int getSize() {
         return size;
     }
 
     // получение головы списка
     public T getFirstNode() {
+        if (size == 0) {
+            throw new IllegalArgumentException();
+        }
         return head.getData();
     }
 
     //изменение значения по индексу
 
     public T setData(int index, T data) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> node = getNode(index);
@@ -54,7 +48,7 @@ public class SinglyLinkedList<T> {
 
     //получение значения по индексу
     public T getElement(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
         return getNode(index).getData();
@@ -62,7 +56,7 @@ public class SinglyLinkedList<T> {
 
     //получение узла по индексу
     private Node<T> getNode(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> p;
@@ -86,6 +80,9 @@ public class SinglyLinkedList<T> {
 
     // удаление первого элемента
     public T deleteTop() {
+        if (size == 0) {
+            throw new IllegalArgumentException();
+        }
         T tmp = head.getData();
         head = head.getNext();
         --size;
@@ -94,7 +91,7 @@ public class SinglyLinkedList<T> {
 
     //добавление по индексу
     public void add(int index, T data) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> node = getNode(index - 1);
@@ -106,10 +103,10 @@ public class SinglyLinkedList<T> {
 
     //удаление по индексу
     public T delete(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-        if (size == 0) {
+        if (index == 0) {
             return deleteTop();
         } else {
             Node<T> p = getNode(index - 1);
@@ -139,7 +136,7 @@ public class SinglyLinkedList<T> {
 
     //вставка после указанного узла
     public void insertAfter(int index, Node<T> object) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
         Node<T> p = getNode(index);
@@ -150,7 +147,7 @@ public class SinglyLinkedList<T> {
 
     //удаление после указанного узла
     public void deleteAfter(int index) {
-        if (index < 0 || index > size) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         } else {
             Node<T> p = getNode(index);
@@ -172,6 +169,9 @@ public class SinglyLinkedList<T> {
 
     //копирование
     public SinglyLinkedList<T> copyList() {
+        if (size ==0){
+            return new SinglyLinkedList<>();
+        }
         SinglyLinkedList<T> newSinglyLinkedList = new SinglyLinkedList<>(getHead().getData());
         for (Node<T> p = head.getNext(), q = newSinglyLinkedList.head; p != null; p = p.getNext(), q = q.getNext()) {
             q.setNext(new Node<>(p.getData()));
