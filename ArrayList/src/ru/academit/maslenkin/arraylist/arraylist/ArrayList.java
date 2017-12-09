@@ -65,7 +65,7 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public boolean contains(Object o) {
-      return this.indexOf(o) !=-1;
+        return this.indexOf(o) != -1;
     }
 
     @Override
@@ -268,8 +268,6 @@ public class ArrayList<T> implements List<T> {
     public Object[] toArray(Object[] a) {
         return new Object[0];
     }
-
-
 
 
     @Override
