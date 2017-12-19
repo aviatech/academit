@@ -19,7 +19,7 @@ public class Main {
         ArrayList<Person> people = new ArrayList<>();
 
         people.add(new Person("Ivan", 20));
-        people.add(new Person("Jon", 28));
+        people.add(new Person("John", 28));
         people.add(new Person("Jack", 23));
         people.add(new Person("Pavel", 15));
         people.add(new Person("Pavel", 15));
@@ -34,6 +34,8 @@ public class Main {
                 .collect(Collectors.toList());
         System.out.println("Имена " + names);
 
+        System.out.println(names.stream().collect(Collectors.joining(", ", "Имя: ",".")));
+
         System.out.println("Имена/средний возраст " + people.stream()
                 .collect(Collectors.groupingBy(Person::getName, Collectors.averagingDouble(Person::getAge))));
 
@@ -44,7 +46,7 @@ public class Main {
 
         Stream<Person> stream = people.stream()
                 .filter(x -> x.getAge() >= 20 && x.getAge() <= 45)
-                .sorted((y, z) -> y.getAge() - z.getAge());
+                .sorted((y, z) -> z.getAge() - y.getAge());
 
         List<String> name = stream.map(Person::getName).collect(Collectors.toList());
         System.out.println(name);
