@@ -1,4 +1,4 @@
-package ru.academitmaslenkin.solution.main.person.main.main.person;
+package ru.academit.maslenkin.main.person.main.main.person;
 
 /**
  * Created by Александр on 20.11.2017.

@@ -1,14 +1,10 @@
-package ru.academitmaslenkin.solution.main.person.main.main.main;
+package ru.academit.maslenkin.main.person.main.main.main;
 
-import com.sun.org.apache.xpath.internal.operations.Operation;
-import ru.academitmaslenkin.solution.main.person.main.main.person.Person;
+import ru.academit.maslenkin.main.person.main.main.person.Person;
 
-import java.awt.*;
 import java.util.*;
 import java.lang.String;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
