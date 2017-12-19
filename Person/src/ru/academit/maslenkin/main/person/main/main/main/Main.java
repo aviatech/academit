@@ -40,7 +40,7 @@ public class Main {
         OptionalDouble age = people.stream().filter(x -> x.getAge() < 18)
                 .mapToInt(Person::getAge)
                 .average();
-        System.out.println("Средний возраст людей младше 18= " + age.getAsDouble());
+        System.out.printf("Средний возраст людей младше 18= %s%n", age.getAsDouble());
 
         Stream<Person> stream = people.stream()
                 .filter(x -> x.getAge() >= 20 && x.getAge() <= 45)
