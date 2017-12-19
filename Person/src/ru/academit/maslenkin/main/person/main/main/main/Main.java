@@ -34,7 +34,7 @@ public class Main {
                 .collect(Collectors.toList());
         System.out.println("Имена " + names);
 
-        System.out.println(names.stream().collect(Collectors.joining(", ", "Имя: ",".")));
+        System.out.println(names.stream().collect(Collectors.joining(", ", "Имена: ",".")));
 
         System.out.println("Имена/средний возраст " + people.stream()
                 .collect(Collectors.groupingBy(Person::getName, Collectors.averagingDouble(Person::getAge))));
