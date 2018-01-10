@@ -7,12 +7,11 @@ import java.util.*;
  */
 public class MyHashTable<T> implements Collection<T> {
     private ArrayList<T>[] arrayHashTable;
-    //private int count;
-    private int length;
+    private int lengthHashTable;
     private int modCount;
-   // private int size;
 
     public MyHashTable() {
+        //noinspection unchecked
         arrayHashTable = new ArrayList[100];
     }
 
@@ -22,25 +21,23 @@ public class MyHashTable<T> implements Collection<T> {
 
     private class MyIterator implements Iterator<T> {
         private int cursor = -1;
-        //int lastRet = -1;
         int expectedModCount = modCount;
         private int cursorListIndex = 0;
         private int index = 0;
 
         @Override
         public boolean hasNext() {    // достигнут ли конец коллекции
-            return cursor + 1 < length;
+            return cursor + 1 < lengthHashTable;
         }
 
         @Override
         public T next() {
-            if (cursor + 1 > length) {
+            if (cursor + 1 > lengthHashTable) {
                 throw new NoSuchElementException();
             }
-            if (expectedModCount != modCount) {
+            if (modCount != expectedModCount) {
                 throw new ConcurrentModificationException();
             }
-
             for (int i = cursorListIndex; i < arrayHashTable.length; ++i) {
                 cursorListIndex = i;
                 if (arrayHashTable[i] != null && arrayHashTable[i].size() > 0) {
@@ -60,12 +57,12 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public int size() {
-        return length;
+        return lengthHashTable;
     }
 
     @Override
     public boolean isEmpty() {
-        return false;
+        return lengthHashTable == 0;
     }
 
     @Override
@@ -81,7 +78,7 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public Object[] toArray() {
-        Object[] array = new Object[length];
+        Object[] array = new Object[lengthHashTable];
         int i = 0;
         for (T element : this) {
             array[i] = element;
@@ -92,7 +89,16 @@ public class MyHashTable<T> implements Collection<T> {
 
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        if (a.length < lengthHashTable) {
+            //noinspection unchecked
+            return (T1[]) Arrays.copyOf(toArray(), lengthHashTable, a.getClass());
+        }
+        //noinspection SuspiciousSystemArraycopy
+        System.arraycopy(toArray(), 0, a, 0, lengthHashTable);
+        if (a.length > lengthHashTable) {
+            a[lengthHashTable] = null;
+        }
+        return a;
     }
 
     @Override
@@ -102,7 +108,7 @@ public class MyHashTable<T> implements Collection<T> {
             arrayHashTable[i] = new ArrayList<>();
         }
         arrayHashTable[i].add(t);
-        ++length;
+        ++lengthHashTable;
         ++modCount;
         return true;
 
@@ -111,11 +117,14 @@ public class MyHashTable<T> implements Collection<T> {
     @Override
     public boolean remove(Object o) {
         int i = getIndex(o);
-        if (arrayHashTable[i].remove(o)) {
-            --length;
-            ++modCount;
-            return true;
+        if (arrayHashTable[i] == null || arrayHashTable[i].size() < 1){
+            return false;
         }
+            if (arrayHashTable[i].remove(o)) {
+                --lengthHashTable;
+                ++modCount;
+                return true;
+            }
         return false;
     }
 
@@ -142,15 +151,15 @@ public class MyHashTable<T> implements Collection<T> {
     @Override
     public boolean removeAll(Collection<?> c) {
         int changeCount = 0;
-        for (Object element: c){
-            int i=getIndex(element);
-            if(arrayHashTable[i] !=null && arrayHashTable[i].size()>=1){
-               while (remove(element)){
-                   ++changeCount;
-               }
+        for (Object element : c) {
+            int i = getIndex(element);
+            if (arrayHashTable[i] != null && arrayHashTable[i].size() >= 1) {
+                while (remove(element)) {
+                    ++changeCount;
+                }
             }
         }
-        return changeCount !=0;
+        return changeCount != 0;
     }
 
     @Override
@@ -160,8 +169,8 @@ public class MyHashTable<T> implements Collection<T> {
             if (list != null && list.size() > 0) {
                 for (int i = 0; i < list.size(); i++) {
                     if (!c.contains(list.get(i))) {
-                        list.remove(list.get(i));
-                        --length;
+                        list.remove(i);
+                        --lengthHashTable;
                         --i;
                         ++changeCount;
                     }
@@ -179,20 +188,6 @@ public class MyHashTable<T> implements Collection<T> {
                 ++modCount;
             }
         }
-        length = 0;
+        lengthHashTable = 0;
     }
-
-    @Override
-    public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
-        for (int i = 0; i < length; ++i) {
-            stringBuilder.append(arrayHashTable[i]).append(", ");
-        }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 2);
-        stringBuilder.append("]");
-        return stringBuilder.toString();
-    }
-
-
 }

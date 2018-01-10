@@ -18,17 +18,34 @@ public class Main {
         myHashTable.add(3);
         myHashTable.add(2);
         myHashTable.add(6);
-        myHashTable.add(6);
+        myHashTable.add(10);
+        myHashTable.add(null);
+
+        System.out.println(myHashTable.size());
 
         myHashTable1.add(31);
         myHashTable1.add(21);
         myHashTable1.add(422);
 
-       // myHashTable.addAll(myHashTable1);
+        myHashTable.addAll(myHashTable1);
+        System.out.println(myHashTable.contains(422));
+        System.out.println(myHashTable.containsAll(myHashTable1));
 
-        System.out.println(myHashTable.contains(21));
+        myHashTable.remove(31);
+        System.out.println(myHashTable.contains(31));
+        System.out.println(myHashTable.size());
 
-       // myHashTable.remove(2);
-        System.out.println(myHashTable.toString());
+        myHashTable.removeAll(myHashTable1);
+        System.out.println(myHashTable.containsAll(myHashTable1));
+
+        System.out.println(myHashTable1.size());
+        myHashTable1.clear();
+        System.out.println(myHashTable1.size());
+
+        Integer[] array = new Integer[5];
+        myHashTable.toArray(array);
+        for (Integer e : array) {
+            System.out.println(e);
+        }
     }
 }
