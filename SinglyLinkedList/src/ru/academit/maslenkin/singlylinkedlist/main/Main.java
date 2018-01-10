@@ -39,9 +39,9 @@ public class Main {
         singlyLinkedList.deleteElement(25);
         System.out.println("Удаление по значению " + singlyLinkedList.toString());
 
-        singlyLinkedList.setData(0, 232);
-        singlyLinkedList.setData(1, 233);
-        singlyLinkedList.setData(4, 235);
+        singlyLinkedList.setElement(0, 232);
+        singlyLinkedList.setElement(1, 233);
+        singlyLinkedList.setElement(4, 235);
         System.out.println("Изменение значения по индексу " + singlyLinkedList.toString());
 
         System.out.println("Получение значения по индексу " + singlyLinkedList.getElement(2).toString());
@@ -55,5 +55,8 @@ public class Main {
 
         singlyLinkedList.reverseList();
         System.out.println("Разворот" + singlyLinkedList.toString());
+
+        ;
+        System.out.println("Копирование " + singlyLinkedList.copyList());
     }
 }

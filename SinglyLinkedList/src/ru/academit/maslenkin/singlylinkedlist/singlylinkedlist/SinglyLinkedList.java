@@ -22,6 +22,7 @@ public class SinglyLinkedList<T> {
     public Node<T> getHead() {
         return head;
     }
+
     public int getSize() {
         return size;
     }
@@ -29,17 +30,13 @@ public class SinglyLinkedList<T> {
     // получение головы списка
     public T getFirstNode() {
         if (size == 0) {
-            throw new IllegalArgumentException();
+            throw new IndexOutOfBoundsException();
         }
         return head.getData();
     }
 
     //изменение значения по индексу
-
-    public T setData(int index, T data) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+    public T setElement(int index, T data) {
         Node<T> node = getNode(index);
         T tmp = node.getData();
         node.setData(data);
@@ -48,9 +45,6 @@ public class SinglyLinkedList<T> {
 
     //получение значения по индексу
     public T getElement(int index) {
-        if (index < 0 || index >= size) {
-            throw new IndexOutOfBoundsException();
-        }
         return getNode(index).getData();
     }
 
@@ -94,8 +88,11 @@ public class SinglyLinkedList<T> {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
+        if (size == 0) {
+            addTop(data);
+        }
         Node<T> node = getNode(index - 1);
-        Node<T> p = new Node<T>(data);
+        Node<T> p = new Node<>(data);
         p.setNext(node.getNext());
         node.setNext(p);
         ++size;
@@ -169,12 +166,17 @@ public class SinglyLinkedList<T> {
 
     //копирование
     public SinglyLinkedList<T> copyList() {
-        if (size ==0){
+        if (size == 0) {
             return new SinglyLinkedList<>();
         }
-        SinglyLinkedList<T> newSinglyLinkedList = new SinglyLinkedList<>(getHead().getData());
-        for (Node<T> p = head.getNext(), q = newSinglyLinkedList.head; p != null; p = p.getNext(), q = q.getNext()) {
-            q.setNext(new Node<>(p.getData()));
+        SinglyLinkedList<T> newSinglyLinkedList = new SinglyLinkedList<>(head.getData());
+
+        Node<T> tmpNode = newSinglyLinkedList.getHead();
+
+        for (Node<T> p = head.getNext(); p != null; p = p.getNext()) {
+            Node<T> item = new Node<T>(p.getData());
+            tmpNode.setNext(item);
+            tmpNode = item;
         }
         return newSinglyLinkedList;
     }
