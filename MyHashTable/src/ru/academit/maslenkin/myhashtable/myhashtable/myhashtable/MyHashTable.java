@@ -117,7 +117,7 @@ public class MyHashTable<T> implements Collection<T> {
     @Override
     public boolean remove(Object o) {
         int i = getIndex(o);
-        if (arrayHashTable[i] == null || arrayHashTable[i].size() < 1){
+        if (arrayHashTable[i] == null || isEmpty()){
             return false;
         }
             if (arrayHashTable[i].remove(o)) {
