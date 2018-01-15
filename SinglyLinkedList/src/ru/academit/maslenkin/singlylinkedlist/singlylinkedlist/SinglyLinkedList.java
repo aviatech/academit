@@ -162,13 +162,10 @@ public class SinglyLinkedList<T> {
     //копирование
     public SinglyLinkedList<T> copyList() {
         SinglyLinkedList<T> newSinglyLinkedList = new SinglyLinkedList<>(head.getData());
-
         if (head == null) {
             return newSinglyLinkedList;
         }
-
         Node<T> tmpNode = newSinglyLinkedList.getHead();
-
         for (Node<T> p = head.getNext(); p != null; p = p.getNext()) {
             Node<T> item = new Node<T>(p.getData());
             tmpNode.setNext(item);
