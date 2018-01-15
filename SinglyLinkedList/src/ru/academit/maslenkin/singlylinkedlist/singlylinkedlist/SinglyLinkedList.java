@@ -75,7 +75,7 @@ public class SinglyLinkedList<T> {
     // удаление первого элемента
     public T deleteTop() {
         if (size == 0) {
-            throw new IllegalArgumentException();
+            throw new IndexOutOfBoundsException();
         }
         T tmp = head.getData();
         head = head.getNext();
@@ -88,13 +88,9 @@ public class SinglyLinkedList<T> {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
-        if (size == 0) {
-            addTop(data);
-        }
-        Node<T> node = getNode(index - 1);
-        Node<T> p = new Node<>(data);
+        Node<T> p = getNode(index - 1);
+        Node<T> node = new Node<T>(data);
         p.setNext(node.getNext());
-        node.setNext(p);
         ++size;
     }
 
@@ -120,8 +116,7 @@ public class SinglyLinkedList<T> {
             deleteTop();
             return true;
         }
-        Node<T> p, q;
-        for (p = head, q = p.getNext(); q != null; p = p.getNext(), q = p.getNext()) {
+        for (Node<T> p = head, q = p.getNext(); q != null; q = p.getNext()) {
             if (Objects.equals(q.getData(), object)) {
                 p.setNext(q.getNext());
                 size--;
@@ -166,10 +161,11 @@ public class SinglyLinkedList<T> {
 
     //копирование
     public SinglyLinkedList<T> copyList() {
-        if (size == 0) {
-            return new SinglyLinkedList<>();
-        }
         SinglyLinkedList<T> newSinglyLinkedList = new SinglyLinkedList<>(head.getData());
+
+        if (head == null) {
+            return newSinglyLinkedList;
+        }
 
         Node<T> tmpNode = newSinglyLinkedList.getHead();
 
@@ -185,7 +181,7 @@ public class SinglyLinkedList<T> {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        for (Node p = head; p != null; p = p.getNext()) {
+        for (Node<T> p = head; p != null; p = p.getNext()) {
             stringBuilder.append(p.getData());
             if (p.getNext() != null) {
                 stringBuilder.append(", ");
