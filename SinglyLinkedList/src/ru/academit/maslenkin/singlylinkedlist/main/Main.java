@@ -14,7 +14,7 @@ public class Main {
         singlyLinkedList.addTop(3);
         singlyLinkedList.add(1, 4);
         singlyLinkedList.add(2, 5);
-
+        singlyLinkedList.add(3, 5);
         System.out.println("Список " + singlyLinkedList.toString());
         System.out.println("Удаление первого элемента");
         singlyLinkedList.deleteTop();

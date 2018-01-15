@@ -89,8 +89,8 @@ public class SinglyLinkedList<T> {
             throw new IndexOutOfBoundsException();
         }
         Node<T> p = getNode(index - 1);
-        Node<T> node = new Node<T>(data);
-        p.setNext(node.getNext());
+        Node<T> node = new Node<>(data);
+        p.setNext(node);
         ++size;
     }
 
@@ -116,7 +116,7 @@ public class SinglyLinkedList<T> {
             deleteTop();
             return true;
         }
-        for (Node<T> p = head, q = p.getNext(); q != null; q = p.getNext()) {
+        for (Node<T> p = head, q = p.getNext(); q != null; p = p.getNext(), q = p.getNext()) {
             if (Objects.equals(q.getData(), object)) {
                 p.setNext(q.getNext());
                 size--;
