@@ -165,14 +165,14 @@ public class SinglyLinkedList<T> {
 
     //копирование
     public SinglyLinkedList<T> copyList() {
-        if (size == 0 || head == null) {
+        if (size == 0) {
             return new SinglyLinkedList<>();
         }
         SinglyLinkedList<T> newSinglyLinkedList = new SinglyLinkedList<>(head.getData());
         Node<T> tmpNode = newSinglyLinkedList.getHead();
 
         for (Node<T> p = head.getNext(); p != null; p = p.getNext()) {
-            Node<T> item = new Node<T>(p.getData());
+            Node<T> item = new Node<>(p.getData());
             tmpNode.setNext(item);
             tmpNode = item;
         }
