@@ -66,7 +66,7 @@ public class SinglyLinkedList<T> {
 
     //вставка в начало
     public void addTop(T object) {
-        Node<T> node = new Node<T>(object);
+        Node<T> node = new Node<>(object);
         node.setNext(head);
         head = node;
         ++size;
@@ -88,10 +88,14 @@ public class SinglyLinkedList<T> {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException();
         }
-        Node<T> p = getNode(index - 1);
-        Node<T> node = new Node<>(data);
-        p.setNext(node);
-        ++size;
+        if (index == 0) {
+            addTop(data);
+        } else {
+            Node<T> p = getNode(index - 1);
+            Node<T> node = new Node<>(data);
+            p.setNext(node);
+            ++size;
+        }
     }
 
     //удаление по индексу
@@ -161,16 +165,18 @@ public class SinglyLinkedList<T> {
 
     //копирование
     public SinglyLinkedList<T> copyList() {
-        SinglyLinkedList<T> newSinglyLinkedList = new SinglyLinkedList<>(head.getData());
-        if (head == null) {
-            return newSinglyLinkedList;
+        if (size == 0 || head == null) {
+            return new SinglyLinkedList<>();
         }
+        SinglyLinkedList<T> newSinglyLinkedList = new SinglyLinkedList<>(head.getData());
         Node<T> tmpNode = newSinglyLinkedList.getHead();
+
         for (Node<T> p = head.getNext(); p != null; p = p.getNext()) {
             Node<T> item = new Node<T>(p.getData());
             tmpNode.setNext(item);
             tmpNode = item;
         }
+        newSinglyLinkedList.size = this.getSize();
         return newSinglyLinkedList;
     }
 

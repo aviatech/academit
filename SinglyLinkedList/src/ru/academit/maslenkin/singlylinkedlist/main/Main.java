@@ -30,7 +30,7 @@ public class Main {
         singlyLinkedList.add(3, 41);
         singlyLinkedList.add(4, 25);
         singlyLinkedList.add(5, 44);
-        singlyLinkedList.add(6, 55);
+        singlyLinkedList.add(0, 55);
         System.out.println("Список " + singlyLinkedList.toString());
 
         singlyLinkedList.delete(3);
@@ -56,7 +56,12 @@ public class Main {
         singlyLinkedList.reverseList();
         System.out.println("Разворот" + singlyLinkedList.toString());
 
-        ;
+        SinglyLinkedList<Integer> singlyLinkedList1 = new SinglyLinkedList<>();
+
+        singlyLinkedList1.addTop(null);
+        System.out.println("Пустой список " + singlyLinkedList1);
+        System.out.println("Копирование пустого списка " + singlyLinkedList1.copyList());
+
         System.out.println("Копирование " + singlyLinkedList.copyList());
     }
 }
