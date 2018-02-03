@@ -22,10 +22,6 @@ public class Celsius implements TemperatureConverter {
         return inputTemperature;
     }
 
-    @Override
-    public double convert(double temperature, TemperatureConverter from, TemperatureConverter to) {
-        return temperature;
-    }
 
 
 }

@@ -18,11 +18,6 @@ public class Fahrenheit implements TemperatureConverter {
     }
 
     @Override
-    public double convert(double temperature, TemperatureConverter from, TemperatureConverter to) {
-        return temperature;
-    }
-
-    @Override
     public String getName() {
         return "Fahrenheit";
     }

@@ -7,11 +7,6 @@ import ru.academit.maslenkin.common.TemperatureConverter;
  */
 public class Kelvin implements TemperatureConverter {
     @Override
-    public double convert(double temperature, TemperatureConverter from, TemperatureConverter to) {
-        return temperature;
-    }
-
-    @Override
     public double convertToCelsius(double inputTemperature) {
         return inputTemperature - 273.15;
     }
@@ -20,7 +15,6 @@ public class Kelvin implements TemperatureConverter {
     public double convertFromCelsius(double inputTemperature) {
         return inputTemperature + 273.15;
     }
-
 
     @Override
     public String getName() {

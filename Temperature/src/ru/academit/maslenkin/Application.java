@@ -4,6 +4,7 @@ package ru.academit.maslenkin;
  * Created by Александр on 01.02.2018.
  */
 
+import ru.academit.maslenkin.common.DeterminantConverter;
 import ru.academit.maslenkin.common.TemperatureConverter;
 import ru.academit.maslenkin.common.View;
 import ru.academit.maslenkin.controller.Controller;
@@ -26,7 +27,7 @@ public class Application {
         // В правой части можно использовать и другую модель (в пакете model есть еще другой пример модели)
         // В этом и суть MVC - за счет использования интерфейсов и разделения кода на 3 части, можно добиться
         // простой заменяемости модели и представления
-        TemperatureConverter converter = new Converter();
+        DeterminantConverter converter = new Converter();
 
         // Контроллер - связующее звено, поэтому он знает и о модели, и о представлении
         Controller controller = new Controller(converter, view);

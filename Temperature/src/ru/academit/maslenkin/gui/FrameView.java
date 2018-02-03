@@ -89,7 +89,7 @@ public class FrameView implements View {
         c3.gridheight = 1;
         c3.weighty = 1.0;
         c3.weightx = 1.0;
-        resultLabel.setFont(new Font("Verdana", Font.ITALIC, 14));
+        resultLabel.setFont(new Font("Verdana", Font.ITALIC, 12));
         c3.anchor = WEST;
         c3.insets = new Insets(VERTICAL_INSET, HORIZONTAL_INSET, VERTICAL_INSET, HORIZONTAL_INSET);
         contentPanel.add(resultLabel, c3);

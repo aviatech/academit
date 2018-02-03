@@ -15,5 +15,5 @@ public interface TemperatureConverter {
 
     double convertFromCelsius(double inputTemperature);
 
-    double convert(double temperature, TemperatureConverter from, TemperatureConverter to);
+
 }
