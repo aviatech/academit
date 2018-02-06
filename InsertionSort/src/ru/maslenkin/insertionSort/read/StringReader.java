@@ -10,13 +10,13 @@ import java.util.Scanner;
  */
 public class StringReader {
     public static ArrayList<String> readInputFile(String fileInput) throws FileNotFoundException {
-        ArrayList<String> strings = new ArrayList<>(100);
+        ArrayList<String> stringsArray = new ArrayList<>(100);
         try (Scanner scanner = new Scanner(new FileInputStream(fileInput))) {
             while (scanner.hasNextLine()) {
-                strings.add(scanner.nextLine());
+                stringsArray.add(scanner.nextLine());
             }
         }
-        return strings;
+        return stringsArray;
     }
 }
 

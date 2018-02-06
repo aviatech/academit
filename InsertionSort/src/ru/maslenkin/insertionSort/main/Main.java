@@ -50,7 +50,7 @@ public class Main {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Необходимо указать 4 аргумента" + System.lineSeparator() + "1: имя входного файла" + System.lineSeparator() + "2: имя выходного файла" +
                     System.lineSeparator() + "3: -i сортировка чисел, -s сортировка строк" + System.lineSeparator() +
-                    "4: -а сортировка по возрастанию -d сортировка по убыванию");
+                    "4:-а сортировка по возрастанию -d сортировка по убыванию");
         } catch (ArgumentErrorException e) {
             System.out.println("Ошибка в 3-ем аргументе неверно указан тип входных данных: -i целые числа -s строки");
         }
