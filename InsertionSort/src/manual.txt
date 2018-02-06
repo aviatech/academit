@@ -7,4 +7,4 @@
    Вид сортировки (-а по возрастанию -d по убыванию)
 
    Например
-   java -jar InsertionSort.jar in.txt out.txt -i -a сортировка целых чисел по возрастанию,
+   java -jar InsertionSort.jar in.txt out.txt -i -a сортировка целых чисел по возрастанию.
