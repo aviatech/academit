@@ -1,6 +1,6 @@
 package ru.maslenkin.insertionSort.main;
 
-import ru.maslenkin.insertionSort.error.TypeDataErrorException;
+import ru.maslenkin.insertionSort.error.ArgumentErrorException;
 import ru.maslenkin.insertionSort.read.IntegerNumberReader;
 import ru.maslenkin.insertionSort.read.StringReader;
 import ru.maslenkin.insertionSort.sort.InsertionSort;
@@ -29,16 +29,16 @@ public class Main {
                 switch (typeData) {
                     case "-s":
                         ArrayList<String> stringArrayList = StringReader.readInputFile(nameFileInput);
-                        stringArrayList = InsertionSort.sorting(stringArrayList, SortingMode.select(sortingMode, new StringComparator()));
+                        InsertionSort.sorting(stringArrayList, SortingMode.select(sortingMode, new StringComparator()));
                         WriteFile.write(stringArrayList, nameFileOutput);
                         break;
                     case "-i":
                         ArrayList<Integer> integerArrayList = IntegerNumberReader.readInputFile(nameFileInput);
-                        integerArrayList = InsertionSort.sorting(integerArrayList, SortingMode.select(sortingMode, new IntegerComparator()));
+                        InsertionSort.sorting(integerArrayList, SortingMode.select(sortingMode, new IntegerComparator()));
                         WriteFile.write(integerArrayList, nameFileOutput);
                         break;
                     default:
-                        throw new TypeDataErrorException();
+                        throw new ArgumentErrorException();
                 }
             }
         } catch (FileNotFoundException e) {
@@ -51,7 +51,7 @@ public class Main {
             System.out.println("Необходимо указать 4 аргумента" + System.lineSeparator() + "1: имя входного файла" + System.lineSeparator() + "2: имя выходного файла" +
                     System.lineSeparator() + "3: -i сортировка чисел, -s сортировка строк" + System.lineSeparator() +
                     "4: -а сортировка по возрастанию -d сортировка по убыванию");
-        } catch (TypeDataErrorException e) {
+        } catch (ArgumentErrorException e) {
             System.out.println("Ошибка в 3-ем аргументе неверно указан тип входных данных: -i целые числа -s строки");
         }
     }

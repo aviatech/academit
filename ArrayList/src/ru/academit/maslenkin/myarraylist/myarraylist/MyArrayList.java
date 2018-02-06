@@ -1,91 +1,169 @@
-package ru.academit.maslenkin.arraylist.arraylist;
+package ru.academit.maslenkin.myarraylist.myarraylist;
 
-import java.lang.reflect.Array;
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * Created by Александр on 02.11.2017.
  */
-public class ArrayList<T> implements List<T> {
+public class MyArrayList<T> implements List<T> {
     private static final int DEFAULT_CAPACITY = 10;
-    private T[] items;
+    private T[] elementData;
     private int length;
     private int modCount;
+    private int size;
 
-    public ArrayList() {
-        items = (T[]) new Object[DEFAULT_CAPACITY];
+    public MyArrayList() {
+        elementData = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
     @Override
     public int size() {
-        return length;
+        return size;
     }
 
-    private class Itr implements Iterator<T> {
-        private int cursor;
-        private int expectedModCount = modCount;
-        private int lastRet = -1;
+    @Override
+    public Iterator<T> iterator() {
+        return new MyIterator();
+    }
 
-        public Itr() {
-            this.cursor = 0;
-        }
+    private class MyIterator implements Iterator<T> {
+        int cursor;       // index of next element to return
+        int lastRet = -1; // index of last element returned; -1 if no such
+        int expectedModCount = modCount;
 
-        @Override
         public boolean hasNext() {
-            return cursor != length;
+            return cursor != size;
         }
 
         @Override
         public T next() {
             int i = cursor;
-            if (i >= length) {
+            if (i >= size) {
                 throw new NoSuchElementException();
             }
-            T[] items = ArrayList.this.items;
-            ++cursor;
-            lastRet = i;
-            return items[lastRet];
+            Object[] elementData = MyArrayList.this.elementData;
+            if (i >= elementData.length) {
+                throw new ConcurrentModificationException();
+            }
+            cursor = i + 1;
+            return (T) elementData[lastRet = i];
         }
+    }
+
+
+    private class MyListIterator extends MyIterator implements ListIterator<T> {
+        MyListIterator(int index) {
+            super();
+            cursor = index;
+        }
+
+        public MyListIterator() {
+            cursor = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            if (expectedModCount != modCount) {
+                throw new ConcurrentModificationException();
+            }
+            return cursor + 1 < length;
+        }
+
+        @Override
+        public T next() {
+            if (cursor + 1 >= length) {
+                throw new NoSuchElementException();
+            }
+            if (expectedModCount != modCount) {
+                throw new ConcurrentModificationException();
+            }
+            ++cursor;
+            return elementData[cursor];
+        }
+
+        @Override
+        public boolean hasPrevious() {
+            return cursor != 0;
+        }
+
+        @Override
+        public T previous() {
+            int i = cursor - 1;
+            if (i < 0) {
+                throw new NoSuchElementException();
+            }
+            Object[] elementData = MyArrayList.this.elementData;
+            if (i >= elementData.length) {
+                throw new ConcurrentModificationException();
+            }
+            cursor = i;
+            return (T) elementData[lastRet = i];
+        }
+
+
+        @Override
+        public int nextIndex() {
+            return cursor;
+        }
+
+        @Override
+        public int previousIndex() {
+            return cursor - 1;
+        }
+
+        @Override
+        public void remove() {
+            MyArrayList.this.remove(cursor);
+            expectedModCount = modCount;
+        }
+
+        @Override
+        public void set(T t) {
+            elementData[cursor] = t;
+        }
+
+        @Override
+        public void add(T t) {
+            MyArrayList.this.add(cursor, t);
+            expectedModCount = modCount;
+        }
+
     }
 
     @Override
     public boolean isEmpty() {
-        return length == 0;
+        return size == 0;
     }
 
     public void increaseCapacity() {
-        items = Arrays.copyOf(items, items.length * 2);
+        elementData = Arrays.copyOf(elementData, elementData.length * 2);
     }
 
     public void ensureCapacity(int length) {
-        if (items.length < length) {
-            items = Arrays.copyOf(items, length * 2);
+        if (elementData.length < length) {
+            elementData = Arrays.copyOf(elementData, length * 2);
         }
     }
 
     @Override
     public boolean contains(Object o) {
-        return this.indexOf(o) != -1;
-    }
-
-    @Override
-    public Iterator iterator() {
-        return new Itr();
+        return this.indexOf(o) >= 0;
     }
 
     @Override
     public Object[] toArray() {
         Object[] array = new Object[length];
-        System.arraycopy(items, 0, array, 0, length);
+        System.arraycopy(elementData, 0, array, 0, length);
         return array;
     }
 
     @Override //вставка в конец
     public boolean add(T o) {
-        if (length >= items.length) {
+        if (length >= elementData.length) {
             increaseCapacity();
         }
-        items[length] = o;
+        elementData[length] = o;
         ++length;
 
         return true;
@@ -94,7 +172,7 @@ public class ArrayList<T> implements List<T> {
     @Override   // удаление по значению
     public boolean remove(Object o) {
         for (int i = 0; i < length; ++i) {
-            if (Objects.equals(items[i], o)) {
+            if (Objects.equals(elementData[i], o)) {
                 remove(i);
                 return true;
             }
@@ -105,12 +183,12 @@ public class ArrayList<T> implements List<T> {
     @Override
     public boolean addAll(Collection<? extends T> c) {
         int changeCount = 0;
-        if (length + c.size() > items.length) {
+        if (length + c.size() > elementData.length) {
             ensureCapacity(c.size() + length);
         }
         for (T element : c) {
             length++;
-            items[length - 1] = element;
+            elementData[length - 1] = element;
             changeCount++;
             modCount++;
         }
@@ -123,14 +201,14 @@ public class ArrayList<T> implements List<T> {
         if (index < 0 || index > length) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
-        if (length + c.size() > items.length) {
+        if (length + c.size() > elementData.length) {
             ensureCapacity(length + c.size());
         }
-        System.arraycopy(items, index, items, index + c.size(), length - index);
+        System.arraycopy(elementData, index, elementData, index + c.size(), length - index);
         length = length + c.size();
         int j = index;
         for (T e : c) {
-            items[j] = e;
+            elementData[j] = e;
             j++;
             newModCount++;
             modCount++;
@@ -141,7 +219,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public void clear() {
         for (int i = 0; i < length; ++i) {
-            items[i] = null;
+            elementData[i] = null;
         }
         length = 0;
     }
@@ -151,7 +229,7 @@ public class ArrayList<T> implements List<T> {
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
-        return items[index];
+        return elementData[index];
     }
 
     @Override
@@ -159,8 +237,8 @@ public class ArrayList<T> implements List<T> {
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
-        T temp = items[index];
-        items[index] = element;
+        T temp = elementData[index];
+        elementData[index] = element;
         return temp;
     }
 
@@ -169,31 +247,31 @@ public class ArrayList<T> implements List<T> {
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
-        if (length > items.length) {        // если длина массива меньше увеличиваем в два раза
+        if (length > elementData.length) {        // если длина массива меньше увеличиваем в два раза
             increaseCapacity();
         }
-        System.arraycopy(items, index, items, index + 1, length - index);
-        items[index] = element;                    // перезаписываем элемент по индексу
+        System.arraycopy(elementData, index, elementData, index + 1, length - index);
+        elementData[index] = element;                    // перезаписываем элемент по индексу
         ++length;
     }
 
     @Override
     public T remove(int index) {
-        if (index < 0 || index >= items.length) {
+        if (index < 0 || index >= elementData.length) {
             throw new IndexOutOfBoundsException("Неверный индекс");
         }
         if (index < length - 1) {
-            System.arraycopy(items, index + 1, items, index, length - index - 1);
+            System.arraycopy(elementData, index + 1, elementData, index, length - index - 1);
         }
         --length;
         modCount++;
-        return items[index];
+        return elementData[index];
     }
 
     @Override
     public int indexOf(Object o) {
         for (int i = 0; i < length; ++i) {
-            if (Objects.equals(items[i], o)) {
+            if (Objects.equals(elementData[i], o)) {
                 return i;
             }
         }
@@ -203,7 +281,7 @@ public class ArrayList<T> implements List<T> {
     @Override
     public int lastIndexOf(Object o) {
         for (int i = length - 1; i >= 0; --i) {
-            if (Objects.equals(items[i], o)) {
+            if (Objects.equals(elementData[i], o)) {
                 return i;
             }
         }
@@ -212,12 +290,14 @@ public class ArrayList<T> implements List<T> {
 
     @Override
     public ListIterator listIterator() {
-        return null;
+        return new MyListIterator();
     }
 
     @Override
-    public ListIterator listIterator(int index) {
-        return null;
+    public ListIterator<T> listIterator(int index) {
+        if (index < 0 || index > size)
+            throw new IndexOutOfBoundsException("Index: " + index);
+        return new MyListIterator();
     }
 
     @Override
@@ -229,8 +309,8 @@ public class ArrayList<T> implements List<T> {
     public boolean retainAll(Collection<?> c) {
         int newModCount = 0;
         for (int i = 0; i < length; ++i) {
-            if (!c.contains(items[i])) {
-                remove(items[i]);
+            if (!c.contains(elementData[i])) {
+                remove(elementData[i]);
                 newModCount++;
                 i--;
             }
@@ -243,7 +323,7 @@ public class ArrayList<T> implements List<T> {
         int newModCount = 0;
         for (Object element : c) {
             for (int i = 0; i < length; ++i) {
-                if (Objects.equals(items[i], element)) {
+                if (Objects.equals(elementData[i], element)) {
                     this.remove(i);
                     --i;
                     newModCount++;
@@ -269,13 +349,12 @@ public class ArrayList<T> implements List<T> {
         return new Object[0];
     }
 
-
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
         for (int i = 0; i < length; ++i) {
-            stringBuilder.append(items[i]).append(", ");
+            stringBuilder.append(elementData[i]).append(", ");
         }
         stringBuilder.deleteCharAt(stringBuilder.length() - 2);
         stringBuilder.append("]");
