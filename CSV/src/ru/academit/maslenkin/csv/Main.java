@@ -28,6 +28,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         if (args.length != 2) {
             System.out.println("Должно быть два аргумента: входной файл и файл с результатом");
+            return;
         }
         try (PrintWriter printWriter = new PrintWriter(args[1]);
              Scanner scanner = new Scanner(new FileInputStream(args[0]))) {
