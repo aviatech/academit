@@ -12,8 +12,5 @@ public interface TemperatureConverter {
     String getName();
 
     double convertToCelsius(double inputTemperature);
-
     double convertFromCelsius(double inputTemperature);
-
-
 }

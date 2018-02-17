@@ -138,7 +138,7 @@ public class FrameView implements View {
                     for (ViewListener listener : listeners) {
                         //noinspection SuspiciousMethodCalls
                         listener.needConvertTemperature(temperature, scales.get(comboBoxFrom.getSelectedItem()),
-                                scales.get(comboBoxTo.getSelectedItem())); // по ключу получаю value
+                                scales.get(comboBoxTo.getSelectedItem()));
                     }
                 } catch (NumberFormatException ex) {
                     resultLabel.setForeground(Color.RED);
