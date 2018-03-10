@@ -6,9 +6,9 @@ package ru.academit.maslenkin.model;
 public class Cell {
     private int row;
     private int column;
-    private boolean isBomb;
-    private boolean isOpen = false;
-    private boolean isGuess = false;
+    private boolean isBomb; // в ячейке бомба
+    private boolean isOpen = false; // открытая ячейка
+    private boolean isGuess = false; // предполагаем что в ячейке бомба
     private int bombCounter;
 
     public int getRow() {
@@ -42,7 +42,6 @@ public class Cell {
     public void setOpen(boolean open) {
         isOpen = open;
     }
-
     public boolean isGuess() {
         return isGuess;
     }
@@ -62,5 +61,10 @@ public class Cell {
     public Cell(int row, int column) {
         this.row = row;
         this.column = column;
+    }
+
+    public boolean flip() {   // клик по ячейке
+        isOpen = true;        // признак открытой ячейки меняем на true
+        return !isBomb;       //  возвращаем признак наличия бомбы с значением false
     }
 }
