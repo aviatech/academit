@@ -7,9 +7,24 @@ import java.util.Comparator;
  */
 public class BinarySearchTree<T extends Comparable> {
     private TreeNode<T> root;
+    private int size;
 
-    public BinarySearchTree(T data) {
+ /*   public BinarySearchTree(T data) {
         root = new TreeNode<>(data);
+        size = 1;
+    }*/
+
+    public BinarySearchTree() {
+        root = null;
+        size = 1;
+    }
+
+    public TreeNode<T> getRoot(){
+        return root;
+    }
+
+    public int getSize() {
+        return size;
     }
 
 
@@ -27,7 +42,7 @@ public class BinarySearchTree<T extends Comparable> {
             if (result <= 0) {
                 currentNode = currentNode.getLeft();
             } else
-                currentNode.getRight();
+                currentNode = currentNode.getRight();
         }
         TreeNode<T> p = new TreeNode<>(data);
         if (parentNode == null) {
@@ -39,8 +54,21 @@ public class BinarySearchTree<T extends Comparable> {
             } else {
                 parentNode.setRight(p);
             }
+            ++size;
         }
     }
 
+    public void delete(T data) {
+        TreeNode<T> p = root;
+        TreeNode<T> parent = null;
+    }
 
+
+    @Override
+    public String toString() {
+        return "BinarySearchTree{" +
+                "root=" + root +
+                ", size=" + size +
+                '}';
+    }
 }

@@ -6,4 +6,5 @@ package ru.academit.maslenkin.view;
 public interface View {
     void startApplication();
     void addViewListener(ViewListener listener);
+    void removeViewListener(ViewListener listener);
 }
