@@ -11,6 +11,19 @@ public class Cell {
     private boolean isGuess = false; // предполагаем что в ячейке бомба
     private int bombCounter;
 
+    public Cell(int row, int column) {
+        this.row = row;
+        this.column = column;
+    }
+
+   /* public boolean equals(Object object) {
+        if (object == null || this.getClass() != object.getClass()) {
+            return false;
+        }
+        Cell cell = (Cell) object;
+        return this.row == cell.row && this.column == cell.column;
+    }*/
+
     public int getRow() {
         return row;
     }
@@ -42,6 +55,7 @@ public class Cell {
     public void setOpen(boolean open) {
         isOpen = open;
     }
+
     public boolean isGuess() {
         return isGuess;
     }
@@ -58,10 +72,6 @@ public class Cell {
         this.bombCounter = bombCounter;
     }
 
-    public Cell(int row, int column) {
-        this.row = row;
-        this.column = column;
-    }
 
     public boolean flip() {   // клик по ячейке
         isOpen = true;        // признак открытой ячейки меняем на true
